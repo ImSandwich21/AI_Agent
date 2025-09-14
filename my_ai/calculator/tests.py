@@ -25,12 +25,12 @@ class TestCalculator(unittest.TestCase):
         self.assertEqual(result, 5)
 
     def test_nested_expression(self):
-        result = self.calculator.evaluate("3 * 4 + 5")
-        self.assertEqual(result, 17)
+        result = self.calculator.evaluate("3 + 4 * 5")
+        self.assertAlmostEqual(result, 23.0)
 
     def test_complex_expression(self):
         result = self.calculator.evaluate("2 * 3 - 8 / 2 + 5")
-        self.assertEqual(result, 7)
+        self.assertAlmostEqual(result, 7.0)
 
     def test_empty_expression(self):
         result = self.calculator.evaluate("")
@@ -43,6 +43,10 @@ class TestCalculator(unittest.TestCase):
     def test_not_enough_operands(self):
         with self.assertRaises(ValueError):
             self.calculator.evaluate("+ 3")
+
+    def test_precedence(self):
+        result = self.calculator.evaluate("3 + 7 * 2")
+        self.assertAlmostEqual(result, 17.0)
 
 
 if __name__ == "__main__":
